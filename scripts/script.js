@@ -147,14 +147,8 @@ const data = {
   
   function submitForm() {
     const amountValue = amountInput.value;
-    const screenshotInput = document.getElementById('screenshot');
     if (!/^\d*\.?\d+$/.test(amountValue) || parseFloat(amountValue) < 50) {
       amountError.textContent = (!/^\d*\.?\d+$/.test(amountValue)) ? "Please enter a valid number (no special characters)." : "Minimum amount is 50 USD.";
-      submitMsg.textContent = "";
-      return;
-    }
-    if (!screenshotInput.files || screenshotInput.files.length === 0) {
-      amountError.textContent = "Please upload transaction screenshot.";
       submitMsg.textContent = "";
       return;
     }
@@ -179,18 +173,19 @@ const data = {
     </div><div style='color:#fff;font-size:1.05rem;margin-top:10px;'>Processing...</div>`;
     spinner.style.display = 'block';
 
-    // Prepare form data for API
-    const formData = new FormData();
-    formData.append('crypto', cryptoSelect.value);
-    formData.append('network', networkSelect.value);
-    formData.append('amount', amountValue);
-    formData.append('address', walletAddress.textContent);
-    formData.append('screenshot', screenshotInput.files[0]);
+    // Prepare JSON data for API
+    const data = {
+      crypto: cryptoSelect.value,
+      network: networkSelect.value,
+      amount: amountValue,
+      address: walletAddress.textContent
+    };
 
-    // Send to API route
+    // Send to API route as JSON
     fetch('/api/submit-transaction', {
       method: 'POST',
-      body: formData
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
     })
       .then(response => response.json())
       .then(data => {
