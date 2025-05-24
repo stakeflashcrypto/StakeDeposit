@@ -172,8 +172,8 @@ const data = {
     msg.textContent = '';
     okBtn.style.display = 'none';
 
-    // Show custom circle loader
-    spinner.innerHTML = `<div class='circle-loader'></div>`;
+    // Show custom circle loader and processing text
+    spinner.innerHTML = `<div class='circle-loader'></div><div style='color:#fff;font-size:1.1rem;margin-top:10px;'>Processing...</div>`;
     spinner.style.display = 'block';
 
     // Random delay between 4-20 seconds
