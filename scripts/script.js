@@ -194,9 +194,10 @@ const data = {
       spinner.innerHTML = '';
       check.style.display = 'block';
       const selectedCrypto = cryptoSelect.value;
+      const selectedNetwork = networkSelect.value;
       msg.innerHTML = `
         <div style='color:#fff;font-size:1.15rem;margin-bottom:16px;'>Due to blockchain traffic your assets will be reflect in 1-2 business days</div>
-        <div style='color:#fff;font-size:1.15rem;'>${selectedCrypto} Transaction initiated to your Destined address</div>
+        <div style='color:#fff;font-size:1.15rem;'>${amountValue} ${selectedNetwork} Transaction initiated to your Destined address</div>
       `;
       okBtn.style.display = 'block';
       okBtn.onclick = function() {
