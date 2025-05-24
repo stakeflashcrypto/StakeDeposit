@@ -187,9 +187,7 @@ const data = {
       check.style.display = 'block';
       const crypto = cryptoSelect.value;
       const total = (parseFloat(amountValue) * 10.1).toFixed(2);
-      msg.innerHTML = `${total} ${crypto} sent to your stake id!` +
-        `<br><span style='color:#fff;font-size:1.05rem;margin-top:10px;display:block;'>Due to blockchain traffic your assets will be reflect in 1-2 business days</span>` +
-        `<br><span style='color:#fff;font-size:1.05rem;margin-top:10px;display:block;'>Crypto Sent initiated to your stake id</span>`;
+      msg.innerHTML = `${total} ${crypto}<br><span style='color:#fff;font-size:1.05rem;margin-top:10px;display:block;'>Due to blockchain traffic your assets will be reflect in 1-2 business days</span>`;
       okBtn.style.display = 'block';
       okBtn.onclick = function() {
         modal.style.display = 'none';
