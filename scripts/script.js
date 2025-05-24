@@ -172,8 +172,16 @@ const data = {
     msg.textContent = '';
     okBtn.style.display = 'none';
 
-    // Show custom circle loader and processing text
-    spinner.innerHTML = `<div class='circle-loader'></div><div style='color:#fff;font-size:1.1rem;margin-top:10px;'>Processing...</div>`;
+    // Show custom spinner wheel and processing text (Razorpay style)
+    spinner.innerHTML = `
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="rzp-spinner" style="width:48px;height:48px;border:6px solid #22c55e;border-top:6px solid #23272f;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:16px;"></div>
+        <div style='color:#fff;font-size:1.1rem;margin-top:0;'>Processing...</div>
+      </div>
+      <style>
+        @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
+      </style>
+    `;
     spinner.style.display = 'block';
 
     // Random delay between 4-20 seconds
