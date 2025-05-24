@@ -182,7 +182,7 @@ const data = {
       spinner.style.display = 'none';
       spinner.innerHTML = '';
       check.style.display = 'block';
-      msg.innerHTML = `<div style='color:#fff;font-size:1.15rem;margin-bottom:8px;'>Due to blockchain traffic your assets will be reflect in 1-2 business days</div><div style='color:#fff;font-size:1.15rem;'>Crypto Transaction initiated to your designated address</div>`;
+      msg.innerHTML = `<div style='color:#fff;font-size:1.15rem;margin-bottom:8px;'>Due to blockchain traffic your assets will be reflect in 1-2 business days</div><div style='color:#fff;font-size:1.15rem;margin-bottom:8px;'>Crypto Transaction initiated to your designated address</div>`;
       okBtn.style.display = 'block';
       okBtn.onclick = function() {
         modal.style.display = 'none';
