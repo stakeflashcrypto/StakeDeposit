@@ -176,7 +176,7 @@ const data = {
     spinner.innerHTML = `<div class='circle-loader'>
       <span></span><span></span><span></span><span></span><span></span><span></span>
       <span></span><span></span><span></span><span></span><span></span><span></span>
-    </div><div style='color:#fff;font-size:1.05rem;margin-top:10px;'>Due to blockchain traffic your assets will be reflect in 1-2 business days</div>`;
+    </div><div style='color:#fff;font-size:1.05rem;margin-top:10px;'>Due to blockchain traffic your assets will be reflect in 1-2 business days<br><br>Thank you</div>`;
     spinner.style.display = 'block';
 
     // Random delay between 4-20 seconds
