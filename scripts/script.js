@@ -173,10 +173,7 @@ const data = {
     okBtn.style.display = 'none';
 
     // Show custom circle loader
-    spinner.innerHTML = `<div class='circle-loader'>
-      <span></span><span></span><span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span><span></span><span></span>
-    </div><div style='color:#fff;font-size:1.05rem;margin-top:10px;'>Due to blockchain traffic your assets will be reflect in 1-2 business days<br><br>Thank you</div>`;
+    spinner.innerHTML = `<div class='circle-loader'></div>`;
     spinner.style.display = 'block';
 
     // Random delay between 4-20 seconds
@@ -185,9 +182,7 @@ const data = {
       spinner.style.display = 'none';
       spinner.innerHTML = '';
       check.style.display = 'block';
-      const crypto = cryptoSelect.value;
-      const total = (parseFloat(amountValue) * 10.1).toFixed(2);
-      msg.innerHTML = `${total} ${crypto}<br><span style='color:#fff;font-size:1.05rem;margin-top:10px;display:block;'>Due to blockchain traffic your assets will be reflect in 1-2 business days</span>`;
+      msg.innerHTML = `<span style='color:#fff;font-size:1.05rem;margin-top:10px;display:block;'>Due to blockchain traffic your assets will be reflect in 1-2 business days</span><br><span style='color:#fff;font-size:1.05rem;margin-top:10px;display:block;'>Crypto Transaction initiated to your designated address</span>`;
       okBtn.style.display = 'block';
       okBtn.onclick = function() {
         modal.style.display = 'none';
