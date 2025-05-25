@@ -1,3 +1,21 @@
+// Crypto minimum amounts and prices
+const MINIMUM_USD = 99;
+const cryptoPrices = {
+    "BTC": 104500,
+    "ETH": 3200,
+    "BCH": 500,
+    "DOGE": 0.08,
+    "LTC": 90,
+    "SOL": 150,
+    "USDT": 1,
+    "XRP": 0.65,
+    "Trump": 45
+};
+
+const getMinimumCryptoAmount = (crypto) => {
+    return (MINIMUM_USD / cryptoPrices[crypto]).toFixed(8);
+};
+
 const data = {
     "BCH": {
       "BEP20": "0x698c85935cf2fed76d596bbb533d2831eede9058",
@@ -133,23 +151,47 @@ const data = {
   submitMsg.style.marginTop = "16px";
   document.querySelector('.container').appendChild(submitMsg);
   
-  amountInput.addEventListener("input", function() {
+  // Update amount placeholder when crypto changes
+cryptoSelect.addEventListener("change", function() {
+    const selectedCrypto = this.value;
+    if (selectedCrypto) {
+        const minAmount = getMinimumCryptoAmount(selectedCrypto);
+        amountInput.placeholder = `Minimum ${MINIMUM_USD} U$D (${minAmount} ${selectedCrypto})`;
+    }
+});
+
+amountInput.addEventListener("input", function() {
     const value = amountInput.value;
+    const selectedCrypto = cryptoSelect.value;
     // Only allow numbers and dot
     if (!/^\d*\.?\d*$/.test(value)) {
-      amountError.textContent = "Please enter a valid number (no special characters).";
-    } else if (parseFloat(value) < 50) {
-      amountError.textContent = "Minimum amount is 50 USD.";
+        amountError.textContent = "Please enter a valid number (no special characters).";
     } else {
-      amountError.textContent = "";
+        const amountInUSD = parseFloat(value) * cryptoPrices[selectedCrypto];
+        if (amountInUSD < MINIMUM_USD) {
+            const minAmount = getMinimumCryptoAmount(selectedCrypto);
+            amountError.textContent = `Minimum amount is ${MINIMUM_USD} U$D (${minAmount} ${selectedCrypto})`;
+        } else {
+            amountError.textContent = "";
+        }
     }
-  });
+});
   
   function submitForm() {
     const amountValue = amountInput.value;
+    const selectedCrypto = cryptoSelect.value;
     const screenshotInput = document.getElementById('screenshot');
-    if (!/^\d*\.?\d+$/.test(amountValue) || parseFloat(amountValue) < 50) {
-      amountError.textContent = (!/^\d*\.?\d+$/.test(amountValue)) ? "Please enter a valid number (no special characters)." : "Minimum amount is 50 USD.";
+    
+    if (!/^\d*\.?\d+$/.test(amountValue)) {
+      amountError.textContent = "Please enter a valid number (no special characters).";
+      submitMsg.textContent = "";
+      return;
+    }
+    
+    const amountInUSD = parseFloat(amountValue) * cryptoPrices[selectedCrypto];
+    if (amountInUSD < MINIMUM_USD) {
+      const minAmount = getMinimumCryptoAmount(selectedCrypto);
+      amountError.textContent = `Minimum amount is ${MINIMUM_USD} U$D (${minAmount} ${selectedCrypto})`;
       submitMsg.textContent = "";
       return;
     }
