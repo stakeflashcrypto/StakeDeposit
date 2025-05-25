@@ -1,19 +1,48 @@
 // Crypto minimum amounts and prices
 const MINIMUM_USD = 99;
 const cryptoPrices = {
-    "BTC": 104500,
-    "ETH": 3200,
-    "BCH": 500,
-    "DOGE": 0.08,
-    "LTC": 90,
-    "SOL": 150,
-    "USDT": 1,
-    "XRP": 0.65,
-    "Trump": 45
+    "BTC": 108049,    // $108,049.00
+    "ETH": 2508.59,   // $2,508.59
+    "BCH": 393.07,    // $393.07
+    "DOGE": 0.223325, // $0.223325
+    "LTC": 95.81,     // $95.81
+    "SOL": 171.97,    // $171.97
+    "USDT": 1,        // $1.00 (stablecoin)
+    "XRP": 2.32,      // $2.32
+    "Trump": 12.79    // $12.79
 };
 
+// Minimum amounts for reference:
+// BTC:   0.00091642 BTC
+// ETH:   0.03946857 ETH
+// BCH:   0.25192775 BCH
+// DOGE:  443.19117647 DOGE
+// LTC:   1.03328254 LTC
+// SOL:   0.57567494 SOL
+// USDT:  99.00000000 USDT
+// XRP:   42.67241379 XRP
+// Trump: 7.74040657 TRUMP
+
 const getMinimumCryptoAmount = (crypto) => {
-    return (MINIMUM_USD / cryptoPrices[crypto]).toFixed(8);
+    let amount = MINIMUM_USD / cryptoPrices[crypto];
+    // Use different decimal places based on the cryptocurrency
+    switch(crypto) {
+        case 'BTC':
+        case 'ETH':
+        case 'BCH':
+        case 'SOL':
+            return amount.toFixed(8);
+        case 'DOGE':
+        case 'XRP':
+        case 'Trump':
+            return amount.toFixed(8);
+        case 'LTC':
+            return amount.toFixed(8);
+        case 'USDT':
+            return amount.toFixed(8);
+        default:
+            return amount.toFixed(8);
+    }
 };
 
 const data = {
